@@ -41,7 +41,7 @@ matrix:
       node_js: "6"
       jdk: oraclejdk8
       script: 
-        - cd demo && npm run ci.android.ios
+        - cd demo && npm run ci.ios.build
     - os: linux
       language: android
       dist: precise
