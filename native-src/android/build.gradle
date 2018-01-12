@@ -1,0 +1,48 @@
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+gradle.buildFinished {
+    description "Copies the .aar file to the plugin folder after build."
+
+    def path = "$projectDir/build/outputs/aar/android-release.aar" // might break if you build another configuration
+    def servicesFile = file(path)
+    if(servicesFile.exists()) {
+        copy {
+            from path
+            into "$projectDir/../../src/platforms/android"
+            rename "android-release.aar", "yourplugin.aar"
+        }
+
+        println "\nPlugin copied to src/platforms/android folder."
+    }
+}

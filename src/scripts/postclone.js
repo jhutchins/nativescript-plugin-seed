@@ -14,6 +14,7 @@ var class_name,
     seed_demo_property_name = "yourPlugin",
     seed_github_username = "YourName",
     demo_folder = "../demo",
+    native_src_folder = "../native-src",
     screenshots_dir = "../screenshots",
     seed_tests_dir = "../seed-tests",
     scripts_dir = "scripts",
@@ -111,6 +112,10 @@ function generateClassName() {
 function renameFiles() {
     console.log('Will now rename some files..');
     var files = fs.readdirSync(".");
+
+    // add aar output file
+    files.push("platforms/android/yourplugin.aar");
+
     for (var f in files) {
         var file = files[f];
         if (file.indexOf(seed_plugin_name) === 0) {
@@ -130,6 +135,9 @@ function adjustScripts() {
 
     // add include.gradle
     files.push("platforms/android/include.gradle");
+
+    // add native manifest
+    files.push(native_src_folder + "/android/src/main/AndroidManifest.xml");
 
     // add demo's package.json
     files.push(demo_folder + "/package.json");
