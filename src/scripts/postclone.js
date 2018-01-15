@@ -136,8 +136,9 @@ function adjustScripts() {
     // add include.gradle
     files.push("platforms/android/include.gradle");
 
-    // add native manifest
+    // add native project files
     files.push(native_src_folder + "/android/src/main/AndroidManifest.xml");
+    files.push(native_src_folder + "/android/build.gradle");
 
     // add demo's package.json
     files.push(demo_folder + "/package.json");
