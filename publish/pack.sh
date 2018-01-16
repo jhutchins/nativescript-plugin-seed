@@ -2,7 +2,6 @@
 
 CURRENT_DIR=$(pwd)
 SOURCE_DIR=../src;
-NATIVE_SOURCE_DIR=../native-src;
 TO_SOURCE_DIR=src;
 PACK_DIR=package;
 ROOT_DIR=..;
