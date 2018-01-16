@@ -18,26 +18,20 @@ pack() {
     node_modules/.bin/rimraf "$TO_SOURCE_DIR"
     node_modules/.bin/rimraf "$PACK_DIR"
 
-    # copy src
-    echo 'Copying src...'
+    # build plugin
+    echo 'Building plugin...'
+    cd "$SOURCE_DIR"
+    npm run build
+    cd "$CURRENT_DIR"
+
+    # copy plugin
+    echo 'Copying plugin source...'
     node_modules/.bin/ncp "$SOURCE_DIR" "$TO_SOURCE_DIR"
 
     # copy README & LICENSE to src
     echo 'Copying README and LICENSE to /src...'
     node_modules/.bin/ncp "$ROOT_DIR"/LICENSE "$TO_SOURCE_DIR"/LICENSE
     node_modules/.bin/ncp "$ROOT_DIR"/README.md "$TO_SOURCE_DIR"/README.md
-
-    # compile native package
-    echo 'Building /native-src...'
-    cd "$NATIVE_SOURCE_DIR"/android
-    ./gradlew assembleRelease
-    cd "$CURRENT_DIR"
-
-    # compile package and copy files required by npm
-    echo 'Building /src...'
-    cd "$TO_SOURCE_DIR"
-    node_modules/.bin/tsc
-    cd ..
 
     echo 'Creating package...'
     # create package dir
