@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 CURRENT_DIR=$(pwd)
 SOURCE_DIR=../src;
 TO_SOURCE_DIR=src;

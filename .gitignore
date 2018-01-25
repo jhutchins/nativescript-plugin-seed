@@ -22,6 +22,6 @@ publish/src
 publish/package
 demo/report/report.html
 demo/report/stats.json
-native-src/android/.gradle/**/*
-native-src/android/build/**/*
+src/platforms/android/project/.gradle/**/*
+src/platforms/android/project/build/**/*
 src/platforms/android/*.aar

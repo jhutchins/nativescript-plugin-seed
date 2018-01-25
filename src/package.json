@@ -12,18 +12,14 @@
     },
     "scripts": {
         "tsc": "tsc -skipLibCheck",
-        "build": "npm i && tsc && cd ../native-src/android/ && gradlew assembleRelease",
-        "postclone": "npm i && node scripts/postclone.js && cd ../demo && npm i && cd ../src && npm run plugin.link",
-        "test.android": "npm run build && npm run tslint && cd ../demo && tns build android && tns test android --justlaunch",
-        "test.ios": "npm run build && npm run tslint && cd ../demo && tns build ios && tns test ios --justlaunch",
-        "tslint": "cd .. && tslint \"**/*.ts\" --config tslint.json --exclude \"**/node_modules/**\"",
-        "plugin.link": "npm link && cd ../demo && npm link nativescript-yourplugin && cd ../src",
+        "build": "npm i && tsc && cd platforms/android/project/ && gradlew assembleRelease",
+        "postclone": "npm i && node scripts/postclone.js",
+        "test.android": "cd ../demo && npm run test.android",
+        "test.ios": "cd ../demo && npm run test.ios",
         "plugin.tscwatch": "npm run tsc -- -w",
-        "demo.ios": "npm run build && cd ../demo && tns run ios --syncAllFiles",
-        "demo.android": "npm run build && cd ../demo && tns run android --syncAllFiles",
-        "demo.reset": "cd ../demo && rimraf platforms",
-        "plugin.prepare": "npm run build && cd ../demo && tns plugin remove nativescript-yourplugin && tns plugin add ../src",
-        "clean": "cd ../demo && rimraf hooks node_modules platforms && cd ../src && rimraf node_modules && npm run plugin.link",
+        "demo.ios": "cd ../demo && npm run demo.ios",
+        "demo.android": "cd ../demo && npm run demo.android",
+        "clean": "rimraf node_modules && cd ../demo && npm run demo.clean",
         "ci.tslint": "npm i && tslint '**/*.ts' --config '../tslint.json' --exclude '**/node_modules/**'"
     },
     "keywords": [
@@ -43,9 +39,9 @@
     "homepage": "https://github.com/YourName/nativescript-yourplugin",
     "readmeFilename": "README.md",
     "devDependencies": {
-        "tns-core-modules": "^3.1.0",
-        "tns-platform-declarations": "^3.1.0",
-        "typescript": "~2.3.0",
+        "tns-core-modules": "^3.4.0",
+        "tns-platform-declarations": "^3.4.0",
+        "typescript": "~2.6.0",
         "prompt": "^1.0.0",
         "rimraf": "^2.5.0",
         "tslint": "^5.0.0"

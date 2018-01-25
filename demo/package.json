@@ -43,6 +43,12 @@
   },
   "scripts": {
     "build.plugin": "cd ../src && npm run build",
-    "ci.tslint": "npm i && tslint --config '../tslint.json' 'app/**/*.ts' --exclude '**/node_modules/**'"
+    "ci.tslint": "npm i && tslint --config '../tslint.json' 'app/**/*.ts' --exclude '**/node_modules/**'",
+    "demo.clean": "rimraf hooks node_modules platforms",
+    "demo.android": "npm run build.plugin && tns run android --syncAllFiles",
+    "demo.ios": "npm run build.plugin && tns run ios --syncAllFiles",
+    "demo.reset": "rimraf platforms",
+    "test.android": "npm run build.plugin && tns build android && tns test android --justlaunch",
+    "test.ios": "npm run build.plugin && tns build ios && tns test ios --justlaunch"
   }
 }

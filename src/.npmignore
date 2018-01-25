@@ -2,3 +2,5 @@
 *.ts
 !*.d.ts
 tsconfig.json
+platforms/android/project/**/*
+!platforms/android/*.aar
