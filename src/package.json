@@ -12,7 +12,7 @@
     },
     "scripts": {
         "tsc": "tsc -skipLibCheck",
-        "build": "npm i && tsc && cd platforms/android/project/ && gradlew assembleRelease",
+        "build": "npm i && tsc && cd platforms/android/project/ && sh gradlew assembleRelease",
         "postclone": "npm i && node scripts/postclone.js",
         "test.android": "cd ../demo && npm run test.android",
         "test.ios": "cd ../demo && npm run test.ios",
