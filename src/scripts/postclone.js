@@ -14,7 +14,6 @@ var class_name,
     seed_demo_property_name = "yourPlugin",
     seed_github_username = "YourName",
     demo_folder = "../demo",
-    native_src_folder = "../native-src",
     screenshots_dir = "../screenshots",
     seed_tests_dir = "../seed-tests",
     scripts_dir = "scripts",
@@ -137,8 +136,8 @@ function adjustScripts() {
     files.push("platforms/android/include.gradle");
 
     // add native project files
-    files.push(native_src_folder + "/android/src/main/AndroidManifest.xml");
-    files.push(native_src_folder + "/android/build.gradle");
+    files.push("platforms/android/project/src/main/AndroidManifest.xml");
+    files.push("platforms/android/project/build.gradle");
 
     // add demo's package.json
     files.push(demo_folder + "/package.json");
