@@ -17,7 +17,6 @@ var class_name,
     src_native_dir = "../src-native"
     screenshots_dir = "../screenshots",
     seed_tests_dir = "../seed-tests",
-    scripts_dir = "scripts",
     filesToReplace = {
         readmeFile: {
             source: "README.md",
@@ -187,8 +186,8 @@ function replaceFiles() {
         rimraf(seed_tests_dir, function () {
             console.log('Seed tests removed.');
 
-            // delete scripts folder
-            rimraf.sync(scripts_dir);
+            // delete the postclone.js script
+            rimraf.sync(__filename);
 
             askInitGit();
         });

@@ -15,12 +15,19 @@ function copyPlatformsFiles() {
 
     if (fs.existsSync(srcPath + "AndroidManifest.xml") || fs.existsSync(srcPath + "java") || fs.existsSync(srcPath + "jni") ||
         fs.existsSync(srcPath + "res")) {
-        ncp(srcPath, destPath);
-        var includeGradle = destPath + "include.gradle";
-        if (fs.existsSync(includeGradle)) {
-            rimraf(includeGradle);
-        }
-        compileProject();
+        ncp(srcPath, destPath, function (err) {
+            if (err) {
+                console.error(err);
+                finishBuild();
+                return;
+            }
+
+            var includeGradle = destPath + "include.gradle";
+            if (fs.existsSync(includeGradle)) {
+                rimraf.sync(includeGradle);
+            }
+            compileProject();
+        });
     } else {
         finishBuild();
     }
@@ -29,7 +36,7 @@ function copyPlatformsFiles() {
 function compileProject() {
     exec('sh gradlew assembleRelease', { cwd: srcNativeAndroid }, function (err, stdout, stderr) {
         if (err) {
-            console.log(err);
+            console.error(err);
         }
 
         console.log("Building native Android project complete.");
