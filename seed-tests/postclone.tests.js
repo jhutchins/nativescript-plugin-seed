@@ -133,10 +133,10 @@ describe('postclone', function () {
         });
     });
 
-    it('should create an npm link to the src folder', function (done) {
-        testUtils.getNpmLinks(function (links) {
+    it('should create a symbolic link to the src folder', function (done) {
+        testUtils.getModulesLinks(function (links) {
             var expectedLink = links.filter(function (item) {
-                return item.startsWith("nativescript-" + constants.TEST_PLUGIN_NAME + "@1.0.0") && item.endsWith(constants.SEED_COPY_LOCATION + "/src");
+                return item.indexOf("nativescript-" + constants.TEST_PLUGIN_NAME) !== -1 && item.endsWith("/src");
             });
 
             expect(expectedLink.length).toEqual(1);

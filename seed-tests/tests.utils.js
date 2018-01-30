@@ -83,14 +83,11 @@ exports.callDevelopmentSetup = function callDevelopmentSetup(seedLocation, callb
     });
 };
 
-exports.getNpmLinks = function getNpmLinks(callback) {
-    exec("npm list -g --depth=0", function (error, stdout, stderr) {
+exports.getModulesLinks = function getModulesLinks(callback) {
+    exec("find . -maxdepth 1 -type l -ls", function (error, stdout, stderr) {
         var links = stdout.split(os.EOL)
-            .map(function (item) {
-                return item.replace("├──", "").replace("└──", "").trim();
-            })
             .filter(function (item) {
-                return !!item && item.indexOf("->") !== -1;
+                return item && item.length > 0;
             });
 
         callback(links);
