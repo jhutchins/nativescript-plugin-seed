@@ -12,7 +12,8 @@
     },
     "scripts": {
         "tsc": "tsc -skipLibCheck",
-        "build": "npm i && tsc && cd platforms/android/project/ && sh gradlew assembleRelease",
+        "build": "npm i && tsc && npm run build.native",
+        "build.native": "node scripts/buildNative.js",
         "postclone": "npm i && node scripts/postclone.js",
         "test.android": "cd ../demo && npm run test.android",
         "test.ios": "cd ../demo && npm run test.ios",
@@ -39,6 +40,7 @@
     "homepage": "https://github.com/YourName/nativescript-yourplugin",
     "readmeFilename": "README.md",
     "devDependencies": {
+        "ncp": "^2.0.0",
         "tns-core-modules": "^3.4.0",
         "tns-platform-declarations": "^3.4.0",
         "typescript": "~2.6.0",

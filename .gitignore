@@ -22,6 +22,10 @@ publish/src
 publish/package
 demo/report/report.html
 demo/report/stats.json
-src/platforms/android/project/.gradle/**/*
-src/platforms/android/project/build/**/*
+src-native/android/.gradle/**/*
+src-native/android/build/**/*
+# source files in the native android project are copied from src/platforms/android and should be ignored
+src-native/android/src/main/**/*
+!src-native/android/src/main/README.md
+# The native project builds a binary .aar file, which should not be pushed in the repo
 src/platforms/android/*.aar

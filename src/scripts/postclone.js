@@ -14,6 +14,7 @@ var class_name,
     seed_demo_property_name = "yourPlugin",
     seed_github_username = "YourName",
     demo_folder = "../demo",
+    src_native_dir = "../src-native"
     screenshots_dir = "../screenshots",
     seed_tests_dir = "../seed-tests",
     scripts_dir = "scripts",
@@ -135,9 +136,9 @@ function adjustScripts() {
     // add include.gradle
     files.push("platforms/android/include.gradle");
 
-    // add native project files
-    files.push("platforms/android/project/src/main/AndroidManifest.xml");
-    files.push("platforms/android/project/build.gradle");
+    // add native project files. AndroidManifest.xml will be copied to src-native when building the plugin
+    files.push("platforms/android/AndroidManifest.xml");
+    files.push(src_native_dir + "/android/build.gradle");
 
     // add demo's package.json
     files.push(demo_folder + "/package.json");

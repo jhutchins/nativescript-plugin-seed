@@ -34,13 +34,13 @@ android {
 gradle.buildFinished {
     description "Copies the .aar file to the plugin folder after build."
 
-    def path = "$projectDir/build/outputs/aar/project-release.aar" // might break if you build another configuration
+    def path = "$projectDir/build/outputs/aar/android-release.aar" // might break if you build another configuration
     def servicesFile = file(path)
     if(servicesFile.exists()) {
         copy {
             from path
-            into "$projectDir/../"
-            rename "project-release.aar", "yourplugin.aar"
+            into "$projectDir/../../src/platforms/android/"
+            rename "android-release.aar", "yourplugin.aar"
         }
 
         println "\nPlugin copied to src/platforms/android folder."
