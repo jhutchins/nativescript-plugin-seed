@@ -138,6 +138,9 @@ function adjustScripts() {
     // add native project files.
     files.push(src_native_dir + "/android/build.gradle");
 
+    // add native project build script.
+    files.push("scripts/buildNative.js");
+
     // add demo's package.json
     files.push(demo_folder + "/package.json");
 

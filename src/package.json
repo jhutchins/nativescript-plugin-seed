@@ -14,7 +14,7 @@
         "tsc": "tsc -skipLibCheck",
         "build": "npm i && tsc && npm run build.native",
         "build.native": "node scripts/buildNative.js",
-        "postclone": "npm i && node scripts/postclone.js",
+        "postclone": "npm i && node scripts/postclone.js && cd ../demo && npm i",
         "test.android": "cd ../demo && npm run test.android",
         "test.ios": "cd ../demo && npm run test.ios",
         "plugin.tscwatch": "npm run tsc -- -w",

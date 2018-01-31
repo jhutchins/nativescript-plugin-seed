@@ -1,6 +1,6 @@
 var exec = require('child_process').exec;
 var rimraf = require('rimraf');
-var ncp = require('ncp').ncp;
+var copy = require('recursive-copy');
 var fs = require('fs');
 var async = require("async");
 var os = require('os');
@@ -8,7 +8,7 @@ var constants = require('./tests.constants');
 
 exports.findInFiles = function findInFiles(string, dir, callback) {
     var _resultsCount = 0;
-    var _excludedPaths = ["node_modules", "src/scripts/postclone", "/seed-tests/", ".git"];
+    var _excludedPaths = ["node_modules", "demo/report", "demo/node_modules", "src/scripts/postclone", "src-native/", "/seed-tests/", ".git"];
 
     function _findInFiles(string, dir, callback) {
         fs.readdir(dir, function (err, entries) {
@@ -50,11 +50,15 @@ exports.findInFiles = function findInFiles(string, dir, callback) {
 exports.copySeedDir = function copySeedDir(seedLocation, copyLocation, callback) {
     rimraf.sync(copyLocation);
 
-    ncp(seedLocation, copyLocation, {
+    copy(seedLocation, copyLocation, {
+        dot: true,
         filter: function (fileName) {
             if (fileName.indexOf("seed-tests/" + constants.SEED_COPY_LOCATION) > -1 ||
                 fileName.indexOf("demo/node_modules") > -1 ||
                 fileName.indexOf("src/node_modules") > -1 ||
+                fileName.indexOf("src-native/android/.gradle/") > -1 ||
+                fileName.indexOf("src-native/android/build/") > -1 ||
+                fileName.indexOf("publish/package/") > -1 ||
                 fileName.indexOf("demo/platforms") > -1) {
                 return false;
             }
@@ -83,8 +87,8 @@ exports.callDevelopmentSetup = function callDevelopmentSetup(seedLocation, callb
     });
 };
 
-exports.getModulesLinks = function getModulesLinks(callback) {
-    exec("find . -maxdepth 1 -type l -ls", function (error, stdout, stderr) {
+exports.getModulesLinks = function getModulesLinks(modulesDir, callback) {
+    exec("find . -maxdepth 1 -type l -ls", { cwd: modulesDir }, function (error, stdout, stderr) {
         var links = stdout.split(os.EOL)
             .filter(function (item) {
                 return item && item.length > 0;

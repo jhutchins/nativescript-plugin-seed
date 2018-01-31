@@ -134,9 +134,9 @@ describe('postclone', function () {
     });
 
     it('should create a symbolic link to the src folder', function (done) {
-        testUtils.getModulesLinks(function (links) {
+        testUtils.getModulesLinks(constants.SEED_COPY_LOCATION + "/demo/node_modules/", function (links) {
             var expectedLink = links.filter(function (item) {
-                return item.indexOf("nativescript-" + constants.TEST_PLUGIN_NAME) !== -1 && item.endsWith("/src");
+                return item.indexOf("nativescript-" + constants.TEST_PLUGIN_NAME) !== -1 && item.endsWith("/src/\n");
             });
 
             expect(expectedLink.length).toEqual(1);
