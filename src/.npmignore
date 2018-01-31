@@ -2,6 +2,7 @@
 *.ts
 !*.d.ts
 tsconfig.json
+scripts/**/*
 # Starting with NativeScript 4.0, we ignore all files in the plugin's platforms/android directory except packaged .aar and include.gradle. 
 platforms/android/**/*
 !platforms/android/*.aar
