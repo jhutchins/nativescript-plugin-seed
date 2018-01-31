@@ -40,7 +40,8 @@
     "homepage": "https://github.com/YourName/nativescript-yourplugin",
     "readmeFilename": "README.md",
     "devDependencies": {
-        "ncp": "^2.0.0",
+        "recursive-copy": "^2.0.8",
+        "xml2js": "^0.4.19",
         "tns-core-modules": "^3.4.0",
         "tns-platform-declarations": "^3.4.0",
         "typescript": "~2.6.0",

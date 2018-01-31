@@ -135,8 +135,7 @@ function adjustScripts() {
     // add include.gradle
     files.push("platforms/android/include.gradle");
 
-    // add native project files. AndroidManifest.xml will be copied to src-native when building the plugin
-    files.push("platforms/android/AndroidManifest.xml");
+    // add native project files.
     files.push(src_native_dir + "/android/build.gradle");
 
     // add demo's package.json
@@ -162,13 +161,7 @@ function adjustScripts() {
 
         if (fs.lstatSync(file).isFile()) {
             var contents = fs.readFileSync(file, 'utf8');
-            var result = '';
-            if(file.indexOf('AndroidManifest') >= 0){
-                // AndroidManifest project name doesn't allow usage of dash in the name
-                result = contents.replace(regexp_seed_plugin_name, inputParams.plugin_name.replace('-', '_').toLowerCase());
-            } else {
-                result = contents.replace(regexp_seed_plugin_name, inputParams.plugin_name);
-            }
+            var result = contents.replace(regexp_seed_plugin_name, inputParams.plugin_name);
             result = result.replace(regexp_seed_class_name, class_name);
             result = result.replace(regexp_seed_demo_property_name, class_name[0].toLowerCase() + class_name.substr(1));
             result = result.replace(regexp_seed_github_username, inputParams.github_username);
