@@ -17,7 +17,8 @@ module.exports = (function () {
 
                     var watcher = chokidar.watch(element, {
                         // One-liner for current directory, ignores .dotfiles
-                        ignored: /(^|[\/\\])\../
+                        ignored: /(^|[\/\\])\../,
+                        persistent: true
                     }).on('all', (event, path) => {
                         require("./native-builder").buildAar().then(function () {
                             resolve(path)
@@ -28,7 +29,6 @@ module.exports = (function () {
                         chokidar.close();
                         console.log(`Chokidar error:\n${err}`)
                     })
-
                     watchersArray.push(watcher);
                 }
             })
@@ -57,7 +57,11 @@ module.exports = (function () {
     }
 
     function stopNativeWatcher() {
-        watchersArray.forEach(watcher => watcher.close());
+        console.log("Stopping native watcher listeners!")
+        watchersArray.forEach(watcher => {
+            watcher.removeAllListeners()
+            watcher.close()
+        });
     }
 
     return {
