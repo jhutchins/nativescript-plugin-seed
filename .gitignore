@@ -2,6 +2,7 @@
 .idea
 .DS_Store
 *.js
+!plugin-watcher/*.js
 *.js.map
 *.log
 src/*.d.ts
