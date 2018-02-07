@@ -14,12 +14,17 @@ module.exports = (function () {
                 if (element.endsWith(PLATFORMS_ANDROID)) {
                     console.log("we need to warn that the files are not in the propper place and ask the user to move them to src-native/android ... ")
                 } else {
-
-                    var watcher = chokidar.watch(element, {
-                        // One-liner for current directory, ignores .dotfiles
-                        ignored: /(^|[\/\\])\../,
-                        persistent: true
-                    }).on('all', (event, path) => {
+                    const watcherOptions = {
+                        ignoreInitial: true,
+                        awaitWriteFinish: {
+                            pollInterval: 100,
+                            stabilityThreshold: 500
+                        },
+                        persistent: true,
+                        ignored: ["**/.*", ".*"] // hidden files
+                    };
+        
+                    var watcher = chokidar.watch(element, watcherOptions).on('all', (event, path) => {
                         require("./native-builder").buildAar().then(function () {
                             resolve(path)
                         }, function (err) {
