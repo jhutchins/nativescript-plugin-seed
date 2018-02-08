@@ -1,9 +1,10 @@
-var pluginWatcher = require("./main-watcher"),
+let pluginWatcher = require("./main-watcher"),
     path = require("path")
 
 //TODO: plamen5kov: add logic to find config file inside process.cwd() and if not found use hardcoded path
 
-var pathToNativeProject = "src-native/android/src",
+
+let pathToNativeProject = "src-native/android/src",
     pathToTscFiles = "src",
     pathToPluginOldResourcesDir = `${pathToTscFiles}/platforms/android`,
     srcNativeDirs = [
