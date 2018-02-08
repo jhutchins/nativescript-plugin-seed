@@ -1,0 +1,9 @@
+{
+    "nativeDirs": [
+        "/home/plamen5kov/work/repos/nativescript-plugin-seed/src-native/android/src",
+        "/home/plamen5kov/work/repos/nativescript-plugin-seed/src/platforms/android"
+    ],
+    "typescriptDirs": [
+        "/home/plamen5kov/work/repos/nativescript-plugin-seed/src"
+    ]
+}
