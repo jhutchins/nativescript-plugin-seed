@@ -24,13 +24,8 @@ module.exports = (function () {
                     ignored: ["**/.*", ".*"] // hidden files
                 }
 
-                var watcher = chokidar.watch(element, watcherOptions).on('all', (event, path) => {
-                    console.log(`event: ${event} file changed: ${path}`)
-                    nativeBuilder.buildAar().then(function (data) {
-                        console.log(`choki resolve: ${data}`)
-                    }, function (err) {
-                        console.log(`choki reject ${err}`)
-                    })
+                let watcher = chokidar.watch(element, watcherOptions).on('all', (event, path) => {
+                    nativeBuilder.buildAar()
                 }).on("error", function (err) {
                     chokidar.close()
                     console.log(`Chokidar error:\n${err}`)
@@ -41,37 +36,39 @@ module.exports = (function () {
     }
 
     function startTscWatch(dirArray) {
-        return new Promise(function (resolve, reject) {
-            if (!dirArray) {
-                reject(new Error("No dirs passed to tsc watcher!"))
-            }
+        if (!dirArray) {
+            reject(new Error("No dirs passed to tsc watcher!"))
+        }
 
-            dirArray.forEach(element => {
-                let proc = require("child_process", {
-                    cwd: __dirname
-                }).exec(`tsc -w -p ${element}`, function (data, err) {
-                    if (err) {
-                        return reject(err)
-                    }
-                    resolve(data)
-                })
-                proc.stderr.pipe(process.stderr)
-                proc.stdout.pipe(process.stdout)
+        dirArray.forEach(element => {
+            let proc = require("child_process", {
+                cwd: __dirname
+            }).spawn(`tsc`, ['-w', '-p', element], {
+                stdio: ['inherit', 'inherit', 'inherit'] //stdin, stdout, stderr
+            })
+
+            proc.on('close', function (data) {
+                console.log("Shutting down tsc process")
             })
         })
     }
 
-    function stopNativeWatcher() {
-        console.log("\nStopping native watcher listeners!")
+    function stopWatchers() {
+        console.log("\nStopping watchers!")
         watchersArray.forEach(watcher => {
             watcher.removeAllListeners()
             watcher.close()
         })
     }
 
+    function stopTscWatcher() {
+        console.log("\nStopping tsc watcher!")
+
+    }
+
     return {
         startNativeWatch: startNativeWatch,
         startTscWatch: startTscWatch,
-        stopNativeWatcher: stopNativeWatcher
+        stopWatchers: stopWatchers
     }
 })()
