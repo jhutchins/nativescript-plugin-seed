@@ -36,25 +36,7 @@ module.exports = (function () {
         })
     }
 
-    function startTscWatch(dirArray) {
-        if (!dirArray) {
-            reject(new Error('No dirs passed to tsc watcher!'))
-        }
-
-        dirArray.forEach(element => {
-            let proc = require('child_process', {
-                cwd: __dirname
-            }).spawn('tsc', ['-w', '-p', element], {
-                stdio: ['inherit', 'inherit', 'inherit'] //stdin, stdout, stderr
-            })
-
-            proc.on('close', function (data) {
-                console.log('Shutting down tsc process')
-            })
-        })
-    }
-
-    function stopWatchers() {
+    function stopWatcher() {
         console.log('\nStopping watchers!')
         watchersArray.forEach(watcher => {
             watcher.removeAllListeners()
@@ -62,14 +44,8 @@ module.exports = (function () {
         })
     }
 
-    function stopTscWatcher() {
-        console.log('\nStopping tsc watcher!')
-
-    }
-
     return {
         startNativeWatch: startNativeWatch,
-        startTscWatch: startTscWatch,
-        stopWatchers: stopWatchers
+        stopWatchers: stopWatcher
     }
 })()

@@ -42,11 +42,11 @@
     "webpack-sources": "~1.0.1"
   },
   "scripts": {
-    "build.plugin": "cd ../src && npm run build",
+    "plugin.build": "cd ../src && npm run plugin.build",
+    "plugin.watch": "cd ../src && npm run plugin.watch",
     "ci.tslint": "npm i && tslint --config '../tslint.json' 'app/**/*.ts' --exclude '**/node_modules/**'",
     "demo.clean": "rimraf hooks node_modules platforms",
-    "startMyNode": "node a.js",
-    "demo.android": "npm run build.plugin && tns run android --syncAllFiles",
+    "demo.android": "tns run android --syncAllFiles",
     "demo.ios": "npm run build.plugin && tns run ios --syncAllFiles",
     "demo.reset": "rimraf platforms",
     "test.android": "npm run build.plugin && tns build android && tns test android --justlaunch",
