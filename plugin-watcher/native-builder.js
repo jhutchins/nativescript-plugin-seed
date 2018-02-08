@@ -8,7 +8,7 @@ module.exports = (function () {
 
         let proc = gradleBuild(`./gradlew`, ['assembleRelease'], {
             cwd: androidProjectDir,
-            stdio: ['inherit', 'inherit', 'inherit'] //stdin, stdout, stderr
+            stdio: ['ignore', 'inherit', 'inherit'] //stdin, stdout, stderr
         })
 
         proc.on('close', function (data) {
