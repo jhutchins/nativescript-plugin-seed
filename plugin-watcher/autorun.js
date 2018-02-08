@@ -3,7 +3,7 @@ var pluginWatcher = require("./main-watcher"),
 
 //TODO: plamen5kov: add logic to find config file inside process.cwd() and if not found use hardcoded path
 
-var pathToNativeProject = "src-native/android",
+var pathToNativeProject = "src-native/android/src",
     pathToTscFiles = "src",
     pathToPluginOldResourcesDir = `${pathToTscFiles}/platforms/android`,
     srcNativeDirs = [
@@ -14,20 +14,9 @@ var pathToNativeProject = "src-native/android",
         path.resolve(process.cwd(), `../${pathToTscFiles}`),
     ]
 
-
-pluginWatcher.startNativeWatch(srcNativeDirs).then(function (data) {
-    console.log(data)
-    process.send(data);
-}, function (err) {
-    console.log(err)
-})
+pluginWatcher.startNativeWatch(srcNativeDirs)
 
 process.on('SIGINT', function () {
     pluginWatcher.stopNativeWatcher()
     process.exit(0)
 })
-
-process.on('message', function (m) {
-    pluginWatcher.stopNativeWatcher()
-    process.exit(0)
-});
