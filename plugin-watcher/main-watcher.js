@@ -1,18 +1,19 @@
 let chokidar = require('chokidar'),
-    nativeBuilder = require("./native-builder")
+    nativeBuilder = require('./native-builder')
 
 module.exports = (function () {
-    const PLATFORMS_ANDROID = "platforms/android"
+    const PLATFORMS_ANDROID = 'platforms/android'
     let watchersArray = []
 
     function startNativeWatch(dirArray) {
         if (!dirArray) {
-            reject(new Error("No dirs passed to native watcher!"))
+            reject(new Error('No dirs passed to native watcher!'))
         }
 
         dirArray.forEach(element => {
             if (element.endsWith(PLATFORMS_ANDROID)) {
-                console.log("we need to warn that the files are not in the propper place and ask the user to move them to src-native/android ... ")
+                //TODO: plamen5kov: discuss better warning with the plugins team
+                console.warn(`\nPlugin watcher can't handle "${element}" folder.\nIf you are looking for a way to edit the AndroidManifest.xml or resources folder, please go to "src-native/android/src" and eddit all files there.`)
             } else {
                 const watcherOptions = {
                     ignoreInitial: true,
@@ -21,12 +22,12 @@ module.exports = (function () {
                         stabilityThreshold: 500
                     },
                     persistent: true,
-                    ignored: ["**/.*", ".*"] // hidden files
+                    ignored: ['**/.*', '.*'] // hidden files
                 }
 
                 let watcher = chokidar.watch(element, watcherOptions).on('all', (event, path) => {
                     nativeBuilder.buildAar()
-                }).on("error", function (err) {
+                }).on('error', function (err) {
                     chokidar.close()
                     console.log(`Chokidar error:\n${err}`)
                 })
@@ -37,24 +38,24 @@ module.exports = (function () {
 
     function startTscWatch(dirArray) {
         if (!dirArray) {
-            reject(new Error("No dirs passed to tsc watcher!"))
+            reject(new Error('No dirs passed to tsc watcher!'))
         }
 
         dirArray.forEach(element => {
-            let proc = require("child_process", {
+            let proc = require('child_process', {
                 cwd: __dirname
-            }).spawn(`tsc`, ['-w', '-p', element], {
+            }).spawn('tsc', ['-w', '-p', element], {
                 stdio: ['inherit', 'inherit', 'inherit'] //stdin, stdout, stderr
             })
 
             proc.on('close', function (data) {
-                console.log("Shutting down tsc process")
+                console.log('Shutting down tsc process')
             })
         })
     }
 
     function stopWatchers() {
-        console.log("\nStopping watchers!")
+        console.log('\nStopping watchers!')
         watchersArray.forEach(watcher => {
             watcher.removeAllListeners()
             watcher.close()
@@ -62,7 +63,7 @@ module.exports = (function () {
     }
 
     function stopTscWatcher() {
-        console.log("\nStopping tsc watcher!")
+        console.log('\nStopping tsc watcher!')
 
     }
 
