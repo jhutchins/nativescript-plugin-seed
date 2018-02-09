@@ -1,0 +1,52 @@
+Options CLI to rebuild/not rebuild plugin's .aar file
+- naming convention
+- some flag we give to CLI saying do not rebuild .aar
+- some cliignore-like file in platforms/android folder telling CLI not to build in .aar
+- refer plugin in demo by .tgz and not symlink
+
+
+scenarios
+
+CLI 4.0
+    - Android RT 4.0
+        - expects .aar
+        - plugin 3.x
+            - CLI will remove flavors from include.gradle and will show warning 
+            - CLI builds platforms/android folder into .aar and will show warning
+            - [tns run android --syncAllFiles] CLI SHOULD re-build resources changes into .aar
+        - plugin 4.x
+            - [when symlinked] Plugin builds native-src folder into .aar
+            - [when symlinked][tns run android --syncAllFiles] CLI MUST IGNORE resources changes and NOT build .aar
+    - Android RT 3.0
+        - does NOT expect .aar 
+        - plugin 3.x    
+            - [???] CLI will remove flavors from include.gradle and will show warning
+            - Plugin does NOT build platforms/android folder into .aar
+            - [???][tns run android --syncAllFiles] User needs to "tns platform remove android" when changing resources  
+        - plugin 4.x    
+            - Android RT adds flavors in include.gradle (to work as 3.x plugin)
+            - [when symlinked][tns run android --syncAllFiles] CLI MUST IGNORE resources changes and NOT build .aar
+            - [when symlinked] Plugin builds native-src folder into .aar
+
+
+Workflow:
+
+1. Clone seed
+2. [src] Run postclone
+3. [src] npm run build
+4. [src] npm run plugin.tscwatch
+5. [src] npm run plugin.resources.watch
+6. [demo] npm run demo.android
+7. ?
+
+
+to discuss
+- should we leave resource files in platforms/android in seed 4.0 ?
+
+native watcher
+- src/platforms/android
+    - log warning to tell changes should not be done here
+    - log warning move changed files to src-native
+- src-native/android
+    - log info building .aar
+    - build .aar

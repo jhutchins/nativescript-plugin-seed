@@ -11,13 +11,9 @@
         }
     },
     "scripts": {
-        "tsc": "tsc -skipLibCheck",
-        "build": "npm i && tsc && npm run build.native",
-        "build.native": "node scripts/buildNative.js",
+        "plugin.build": "npm i && tsc -skipLibCheck && node ../plugin-watcher/index.js",
+        "plugin.watch": "tsc -skipLibCheck -w & node ../plugin-watcher/index.js --watch",
         "postclone": "npm i && node scripts/postclone.js && cd ../demo && npm i",
-        "test.android": "cd ../demo && npm run test.android",
-        "test.ios": "cd ../demo && npm run test.ios",
-        "plugin.tscwatch": "npm run tsc -- -w",
         "demo.ios": "cd ../demo && npm run demo.ios",
         "demo.android": "cd ../demo && npm run demo.android",
         "clean": "rimraf node_modules && cd ../demo && npm run demo.clean",
@@ -44,7 +40,6 @@
         "xml2js": "^0.4.19",
         "tns-core-modules": "^3.4.0",
         "tns-platform-declarations": "^3.4.0",
-        "typescript": "~2.6.0",
         "prompt": "^1.0.0",
         "rimraf": "^2.5.0",
         "tslint": "^5.0.0"
