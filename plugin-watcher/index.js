@@ -4,8 +4,6 @@ if (process.argv.indexOf("--watch") != -1) {
     detached: false,
     stdio: ['inherit', 'inherit', 'inherit'] // child inherits stdin, stdout, stderr
   });
-
-  child.unref() //don't block parent loop
 } else {
   let nativeBuilder = require("./native-builder")
 
