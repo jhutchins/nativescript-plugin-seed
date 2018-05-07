@@ -102,7 +102,7 @@ Doing so will open up those native apis to your plugin :)
 
 Take a look at these existing plugins for how that can be done very simply:
 
-* [nativescript-cardview](https://github.com/bradmartin/nativescript-cardview/tree/master/platforms)
+* [nativescript-cardview](https://github.com/bradmartin/nativescript-cardview/tree/master/src/platforms/)
 * [nativescript-floatingactionbutton](https://github.com/bradmartin/nativescript-floatingactionbutton/tree/master/src/platforms)
 
 It's highly recommended to generate typings for the native libraries used in your plugin. By generating typings you'll be able to see what APIs exactly are exposed to Javascript and use them easily in your plugin code
